@@ -1,3 +1,8 @@
-DROP TABLE clicks;
-DROP TABLE users;
-DROP SCHEMA clicker;
+SET search_path TO clicker;
+
+DROP TABLE IF EXISTS clicks CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
+RESET search_path;
+
+DROP SCHEMA IF EXISTS clicker CASCADE;

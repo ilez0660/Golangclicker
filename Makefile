@@ -31,10 +31,10 @@ migrate-down:
 	@make migrate-actions action=down
 migrate-actions:
 	@if [ -z "$(action)" ]; then \
-		echo "action is empty. make migrate-actions action=up"; \
+		echo "action is empty. make click-migrate-actions action=up"; \
 		exit 1; \
 	fi; \
-	docker compose run --rm todo-postgres-migrate \
+	docker compose run --rm click-postgres-migrate \
 		-path /migrations \
 		-database "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable" \
 		"$(action)"
