@@ -7,9 +7,21 @@ export PROJECT_ROOT=$(shell pwd)
 dc-close:
 	@docker compose down
 env-up:
-	@docker compose up -d postgres
+	@docker compose up -d postgres && \
+	docker compose up -d port-forwarder
 env-down:
-	@docker compose down postgres
+	@docker compose down postgres && \
+	docker compose down port-forwarder
+env-cleanup:
+	@read -p "Очистить все volume файлы окружения? Опасность утери данных. [y/N]: " ans; \
+	if [ "$$ans" = "y" ]; then \
+		docker compose down postgres port-forwarder && \
+		rm -rf out/pgdata && \
+		echo "Файлы окружения очищены"; \
+	else \
+		echo "Очистка окружения отменена"; \
+	fi
+
 env-port-forward:
 	@docker compose up -d port-forwarder
 env-port-close:
@@ -38,3 +50,8 @@ migrate-actions:
 		-path /migrations \
 		-database "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable" \
 		"$(action)"
+start-clicker:
+	@export LOGGER_FOLDER="${PROJECT_ROOT}/out/logs" && \
+	export POSTGRES_HOST=localhost && \
+	go mod tidy && \
+	go run Server/cmd/clicker/main.go
