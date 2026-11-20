@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход и Счётчик</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="authPage" class="page active">
+    <div class="card">
+      <h1 id="authTitle" class="title">Вход</h1>
+
+      <form id="authForm" class="form">
+        <input
+          id="fullNameInput"
+          class="input hidden"
+          type="text"
+          placeholder="Полное имя"
+          autocomplete="name"
+        />
+
+        <input
+          id="emailInput"
+          class="input"
+          type="email"
+          placeholder="Email"
+          autocomplete="email"
+        />
+
+        <p id="errorMsg" class="error"></p>
+
+        <button id="submitBtn" class="btn primary" type="submit">Войти</button>
+      </form>
+
+      <p class="switch">
+        <span id="switchText">Нет аккаунта?</span>
+        <button id="switchBtn" class="link" type="button">Зарегистрироваться</button>
+      </p>
+    </div>
+  </div>
+
+  <div id="counterPage" class="page">
+    <div class="card">
+      <div class="header-row">
+        <span id="userInfo" class="user-info"></span>
+        <button id="logoutBtn" class="link" type="button">Выйти</button>
+      </div>
+
+      <h1 id="counterValue" class="counter-value">0</h1>
+
+      <button id="counterBtn" class="btn primary big" type="button">
+        Нажми меня
+      </button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
