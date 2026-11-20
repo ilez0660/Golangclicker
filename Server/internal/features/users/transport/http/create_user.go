@@ -7,6 +7,7 @@ import (
 	core_logger "github.com/ilez0660/Golangclicker/Server/internal/core/logger"
 	core_http_request "github.com/ilez0660/Golangclicker/Server/internal/core/transport/http/request"
 	core_http_response "github.com/ilez0660/Golangclicker/Server/internal/core/transport/http/response"
+	core_http_utils "github.com/ilez0660/Golangclicker/Server/internal/core/transport/http/utils"
 )
 
 type CreateUserRequest struct {
@@ -42,24 +43,22 @@ func (h *UsersHTTPHandler) CreateUser(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	core_http_utils.CreateSession(rw, userDomain.ID)
+
 	response := dtoFromDomain(userDomain)
-
 	responseHandler.JSONResponse(response, http.StatusCreated)
-
-
-
 }
 
 func domainFromDTO(dto CreateUserRequest) domain.User {
 	return domain.NewUserUninitialized(dto.FullName, &dto.Email)
 }
 
-func dtoFromDomain(user domain.User)  CreateUserResponse{
+func dtoFromDomain(user domain.User) CreateUserResponse {
 	return CreateUserResponse{
-		ID:user.ID,
-		Version: user.Version,
+		ID:       user.ID,
+		Version:  user.Version,
 		FullName: user.FullName,
-		Email: user.Email,
+		Email:    user.Email,
 	}
-	
+
 }
