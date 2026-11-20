@@ -63,6 +63,8 @@ func main() {
 	apiVersionRouter.RegisterRoutes(usersTransportHTTP.Routes()...)	
 	httpServer.RegisterAPIRouters(apiVersionRouter)
 
+	httpServer.RegisterWebUI("./Client/Project")
+
 	if err := httpServer.Run(ctx); err != nil {
 		logger.Error("HTTP server run error", zap.Error(err))
 	}

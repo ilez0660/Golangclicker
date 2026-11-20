@@ -90,3 +90,9 @@ func (h *HTTPServer) Run(ctx context.Context) error {
 	}
 	return nil
 }
+
+func (h *HTTPServer) RegisterWebUI(staticDir string) {
+	fs := http.FileServer(http.Dir(staticDir))
+	
+	h.mux.Handle("/", fs)
+}
